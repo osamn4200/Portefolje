@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - Osman Ahmed Mohamoud</title>
+    <meta name="description" content="Kontakt Osman Ahmed Mohamoud for samarbejde om AI og softwareprojekter.">
+    <meta property="og:title" content="Kontakt - Osman Ahmed Mohamoud">
+    <meta property="og:description" content="Book et møde eller send en besked.">
+    <meta property="og:image" content="IMG_2056.jpeg">
+    <link rel="icon" type="image/jpeg" href="IMG_2056.jpeg">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <img src="IMG_2056.jpeg?" alt="Logo" class="logo">
+            <div>
+                <h1>Osman Ahmed Mohamoud</h1>
+                <p>Aspirerende Softwareingeniør med fokus på AI</p>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">Om Mig</a>
+        <a href="projects.html">Projekter</a>
+        <a href="contact.html" style="background-color: #2980b9;">Kontakt</a>
+    </nav>
+
+    <section class="section-container" id="contact">
+        <h2>Kontakt Mig</h2>
+        
+        <p style="text-align: center;">Har du et spændende projekt, eller vil du bare sige hej? Udfyld formularen herunder eller book et møde direkte.</p>
+
+        <!-- Kontaktformular -->
+        <!-- Nu sender vi data til vores egen Python backend via JavaScript -->
+        <form id="contactForm" class="contact-form">
+            <label for="name">Navn</label>
+            <input type="text" id="name" name="name" placeholder="Dit navn" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Din email" required>
+
+            <label for="message">Besked</label>
+            <textarea id="message" name="message" placeholder="Skriv din besked her..." required></textarea>
+
+            <button type="submit" class="btn-primary">Send Besked</button>
+        </form>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Kalender Booking og Info -->
+        <div style="text-align: center;">
+            <h3>Book et møde</h3>
+            <p>Foretrækker du at tage en snak? Forespørg om en tid direkte her, så vender jeg tilbage.</p>
+            
+            <form id="bookingForm" class="contact-form" style="max-width: 400px; margin: 20px auto;">
+                <label for="booking-email">Din Email</label>
+                <input type="email" id="booking-email" name="email" placeholder="Din email" required>
+                
+                <label for="booking-date">Ønsket Dato</label>
+                <input type="date" id="booking-date" name="date" required>
+
+                <label for="booking-time">Ønsket Tidspunkt</label>
+                <input type="time" id="booking-time" name="time" required>
+
+                <button type="submit" class="btn-primary">📅 Anmod om tid</button>
+            </form>
+            
+            <div class="contact-alt">
+                <p><i class="fab fa-linkedin"></i> LinkedIn: <a href="https://www.linkedin.com/in/osman-mohamoud-00979626b/">Osman Mohamoud</a></p>
+                <p><i class="fab fa-github"></i> GitHub: <a href="https://github.com/osamn4200">osamn4200</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-socials">
+            <a href="https://github.com/osamn4200" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/osman-mohamoud-00979626b/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:Abdrahim.4200@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p>&copy; 2024 Osman Ahmed Mohamoud</p>
+    </footer>
+
+    <button id="darkModeToggle" class="material-icons">brightness_2</button>
+    <button id="backToTopBtn" title="Gå til toppen">↑</button>
+    <script src="script.js"></script>
+</body>
+</html>
