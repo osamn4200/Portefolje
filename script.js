@@ -202,6 +202,27 @@ if (canvas) {
     animate();
 }
 
+// Funktion til at vise beskeder pænt i formularen
+function displayMessage(form, message, type) {
+    let msgElement = form.querySelector('.form-message');
+    // Hvis elementet ikke findes endnu, opret det
+    if (!msgElement) {
+        msgElement = document.createElement('div');
+        msgElement.className = 'form-message';
+        form.appendChild(msgElement);
+    }
+    
+    // Sørg for den er synlig og har den rigtige farve
+    msgElement.style.display = ''; 
+    msgElement.className = 'form-message ' + type;
+    msgElement.textContent = message;
+    
+    // Fjern beskeden igen efter 5 sekunder (valgfrit)
+    setTimeout(() => {
+        msgElement.style.display = 'none';
+    }, 5000);
+}
+
 // --- Håndtering af Kontaktformular (Egen Backend) ---
 const contactForm = document.getElementById('contactForm');
 
@@ -227,13 +248,13 @@ if (contactForm) {
         })
         .then(response => response.json())
         .then(data => {
-            alert("Tak! Din besked er modtaget. Jeg vender tilbage hurtigst muligt.");
+            displayMessage(contactForm, "Tak! Din besked er modtaget. Jeg vender tilbage hurtigst muligt.", "success");
             contactForm.reset();
             submitBtn.textContent = originalText;
         })
         .catch(error => {
             console.error('Fejl:', error);
-            alert("Der skete en fejl ved afsendelse. Prøv venligst igen senere.");
+            displayMessage(contactForm, "Der skete en fejl ved afsendelse. Prøv venligst igen senere.", "error");
             submitBtn.textContent = originalText;
         });
     });
@@ -264,13 +285,13 @@ if (bookingForm) {
         })
         .then(response => response.json())
         .then(data => {
-            alert("Tak! Din forespørgsel er sendt. Jeg vender tilbage for at bekræfte tiden.");
+            displayMessage(bookingForm, "Tak! Din forespørgsel er sendt. Jeg vender tilbage for at bekræfte tiden.", "success");
             bookingForm.reset();
             submitBtn.textContent = originalText;
         })
         .catch(error => {
             console.error('Fejl:', error);
-            alert("Der skete en fejl ved booking. Prøv venligst igen senere.");
+            displayMessage(bookingForm, "Der skete en fejl ved booking. Prøv venligst igen senere.", "error");
             submitBtn.textContent = originalText;
         });
     });
