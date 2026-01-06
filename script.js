@@ -246,7 +246,13 @@ if (contactForm) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Server fejl');
+            }
+        })
         .then(data => {
             displayMessage(contactForm, "Tak! Din besked er modtaget. Jeg vender tilbage hurtigst muligt.", "success");
             contactForm.reset();
@@ -283,7 +289,13 @@ if (bookingForm) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Server fejl');
+            }
+        })
         .then(data => {
             displayMessage(bookingForm, "Tak! Din forespørgsel er sendt. Jeg vender tilbage for at bekræfte tiden.", "success");
             bookingForm.reset();

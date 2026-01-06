@@ -25,9 +25,8 @@ def send_email_notification(subject, body):
         msg['To'] = EMAIL_ADDRESS # Sender mailen til mig selv
         msg.set_content(body)
 
-        # Forbind til Gmails server (Brug port 587 og STARTTLS)
-        with smtplib.SMTP('smtp.gmail.com', 587, timeout=30) as smtp:
-            smtp.starttls() # Krypter forbindelsen
+        # Forbind til Gmails server (Vi prøver SSL på port 465)
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465, timeout=30) as smtp:
             smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
             smtp.send_message(msg)
         return True
