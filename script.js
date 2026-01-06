@@ -219,8 +219,8 @@ if (contactForm) {
         const originalText = submitBtn.textContent;
         submitBtn.textContent = "Sender...";
 
-        // Send data til din lokale Python backend
-        fetch('http://127.0.0.1:5000/send-email', {
+        // Send data til min lokale Python backend
+        fetch('https://osman-backend.onrender.com/send-email', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
@@ -257,7 +257,7 @@ if (bookingForm) {
         submitBtn.textContent = "Sender forespørgsel...";
 
         // Send data til din lokale Python backend (nyt endpoint)
-        fetch('http://127.0.0.1:5000/book-meeting', {
+        fetch('https://osman-backend.onrender.com/book-meeting', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
