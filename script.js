@@ -227,13 +227,13 @@ if (contactForm) {
         })
         .then(response => response.json())
         .then(data => {
-            alert("Tak! Din besked er modtaget (tjek din Python terminal).");
+            alert("Tak! Din besked er modtaget. Jeg vender tilbage hurtigst muligt.");
             contactForm.reset();
             submitBtn.textContent = originalText;
         })
         .catch(error => {
             console.error('Fejl:', error);
-            alert("Der skete en fejl. Er din Python server tændt?");
+            alert("Der skete en fejl ved afsendelse. Prøv venligst igen senere.");
             submitBtn.textContent = originalText;
         });
     });
@@ -256,7 +256,7 @@ if (bookingForm) {
         const originalText = submitBtn.textContent;
         submitBtn.textContent = "Sender forespørgsel...";
 
-        // Send data til din lokale Python backend (nyt endpoint)
+        // Send data til min lokale Python backend (nyt endpoint)
         fetch('https://osman-backend.onrender.com/book-meeting', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -264,13 +264,13 @@ if (bookingForm) {
         })
         .then(response => response.json())
         .then(data => {
-            alert("Tak! Din forespørgsel er sendt. Jeg bekræfter via email.");
+            alert("Tak! Din forespørgsel er sendt. Jeg vender tilbage for at bekræfte tiden.");
             bookingForm.reset();
             submitBtn.textContent = originalText;
         })
         .catch(error => {
             console.error('Fejl:', error);
-            alert("Kunne ikke forbinde til serveren. Er app.py tændt?");
+            alert("Der skete en fejl ved booking. Prøv venligst igen senere.");
             submitBtn.textContent = originalText;
         });
     });
