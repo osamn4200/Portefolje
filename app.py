@@ -25,9 +25,8 @@ def send_email_notification(subject, body):
         msg['To'] = EMAIL_ADDRESS # Sender mailen til dig selv
         msg.set_content(body)
 
-        # Forbind til Gmails server (Brug port 587 og STARTTLS for bedre stabilitet)
-        with smtplib.SMTP('smtp.gmail.com', 587, timeout=15) as smtp:
-            smtp.starttls()
+        # Forbind til Gmails server (Vi prøver SSL på port 465 igen med timeout)
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465, timeout=20) as smtp:
             smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
             smtp.send_message(msg)
         return True
@@ -43,9 +42,10 @@ def send_email():
     
     # Send emailen (og print i terminalen som backup)
     print(f"--- {subject} ---\n{body}\n----------------")
-    send_email_notification(subject, body)
-    
-    return jsonify({"status": "success", "message": "Besked modtaget"}), 200
+    if send_email_notification(subject, body):
+        return jsonify({"status": "success", "message": "Besked modtaget"}), 200
+    else:
+        return jsonify({"status": "error", "message": "Kunne ikke sende email"}), 500
 
 @app.route('/book-meeting', methods=['POST'])
 def book_meeting():
@@ -55,9 +55,10 @@ def book_meeting():
     
     # Send emailen (og print i terminalen som backup)
     print(f"--- {subject} ---\n{body}\n----------------")
-    send_email_notification(subject, body)
-    
-    return jsonify({"status": "success", "message": "Booking modtaget"}), 200
+    if send_email_notification(subject, body):
+        return jsonify({"status": "success", "message": "Booking modtaget"}), 200
+    else:
+        return jsonify({"status": "error", "message": "Kunne ikke sende email"}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
