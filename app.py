@@ -11,6 +11,10 @@ CORS(app)
 BREVO_API_KEY = os.environ.get('BREVO_API_KEY')
 MY_EMAIL = os.environ.get('MY_EMAIL') # Din email (både afsender og modtager)
 
+# Sikkerhedsnet: Fjern eventuelle usynlige mellemrum fra Render
+if BREVO_API_KEY: BREVO_API_KEY = BREVO_API_KEY.strip()
+if MY_EMAIL: MY_EMAIL = MY_EMAIL.strip()
+
 # Hjælpefunktion til at sende emails (Gør koden pænere og genbrugelig)
 def send_email_notification(subject, body):
     if not BREVO_API_KEY or not MY_EMAIL:
