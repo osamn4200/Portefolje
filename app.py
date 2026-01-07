@@ -31,7 +31,7 @@ def send_email_notification(subject, body):
     
     # Data til Brevo
     payload = {
-        "sender": {"email": MY_EMAIL, "name": "Min Portefølje"},
+        "sender": {"email": MY_EMAIL, "name": "Osman Portefølje"},
         "to": [{"email": MY_EMAIL}],
         "subject": subject,
         "textContent": body
