@@ -1,6 +1,5 @@
 import os
-import smtplib
-from email.message import EmailMessage
+import requests
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
@@ -8,30 +7,41 @@ app = Flask(__name__)
 CORS(app)
 
 # --- Konfiguration (Hent fra miljøvariabler eller brug standard til test) ---
-# VIGTIGT: På Render.com skal du indstille disse i "Environment Variables"
-EMAIL_ADDRESS = os.environ.get('EMAIL_USER') 
-EMAIL_PASSWORD = os.environ.get('EMAIL_PASS')
+# Vi bruger nu Brevo API i stedet for Gmail SMTP (fordi porte blokeres)
+BREVO_API_KEY = os.environ.get('BREVO_API_KEY')
+MY_EMAIL = os.environ.get('MY_EMAIL') # Din email (både afsender og modtager)
 
 # Hjælpefunktion til at sende emails (Gør koden pænere og genbrugelig)
 def send_email_notification(subject, body):
-    if not EMAIL_ADDRESS or not EMAIL_PASSWORD:
-        print("Fejl: Email-oplysninger mangler. Tjek dine miljøvariabler.")
+    if not BREVO_API_KEY or not MY_EMAIL:
+        print("Fejl: Mangler API nøgle eller email.")
         return False
 
-    try:
-        msg = EmailMessage()
-        msg['Subject'] = subject
-        msg['From'] = EMAIL_ADDRESS
-        msg['To'] = EMAIL_ADDRESS # Sender mailen til mig selv
-        msg.set_content(body)
+    url = "https://api.brevo.com/v3/smtp/email"
+    
+    headers = {
+        "accept": "application/json",
+        "api-key": BREVO_API_KEY,
+        "content-type": "application/json"
+    }
+    
+    # Data til Brevo
+    payload = {
+        "sender": {"email": MY_EMAIL, "name": "Min Portefølje"},
+        "to": [{"email": MY_EMAIL}],
+        "subject": subject,
+        "textContent": body
+    }
 
-        # Forbind til Gmails server (Vi prøver SSL på port 465)
-        with smtplib.SMTP_SSL('smtp.gmail.com', 465, timeout=30) as smtp:
-            smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            smtp.send_message(msg)
-        return True
+    try:
+        response = requests.post(url, json=payload, headers=headers)
+        if response.status_code == 201: # 201 betyder "Created" (Succes)
+            return True
+        else:
+            print(f"Fejl fra Brevo: {response.text}")
+            return False
     except Exception as e:
-        print(f"Fejl ved afsendelse af email: {e}")
+        print(f"Systemfejl: {e}")
         return False
 
 @app.route('/send-email', methods=['POST'])
